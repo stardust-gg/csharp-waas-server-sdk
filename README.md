@@ -12,7 +12,8 @@ Net 8.0 Test project.
 
 Create a file appsettings.local.json and put your apiKey in it if you want to test Api calls.
 
-```{
+```
+{
   "ApiKey": "c80****-****-****-****-********5a"
 }
 ```
