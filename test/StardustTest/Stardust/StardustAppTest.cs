@@ -32,7 +32,7 @@ namespace StardustTest.Stardust
         [Fact]
         public async void GetMyApp()
         {
-            // create a appsettings.local.json and store your ApiKey here to test this part
+            // Instruction in the README file to test this part
             if (!string.IsNullOrEmpty(apiKey))
             {
                 var stardustApplication = new StardustApplicationAPI(apiKey);
