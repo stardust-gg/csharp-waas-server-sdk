@@ -3,14 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace StartdustCustodialSDK.Profile
 {
     public class StardustProfile
     {
         private readonly StardustWallet _wallet;
+        [JsonIgnore]
         public StardustWallet Wallet { get { return _wallet; } }
         //public stardustProfileIdentifierAPI stardustProfileIdentifierAPI { get; set; }
+        [JsonIgnore]
         public StardustProfileAPI StardustProfileAPI { get; set; }
 
 
