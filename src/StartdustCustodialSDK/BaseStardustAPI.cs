@@ -62,7 +62,8 @@ namespace StartdustCustodialSDK
                 }
                 response.EnsureSuccessStatusCode();
                 var jsonResponse = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<T>(jsonResponse);
+                T result = JsonSerializer.Deserialize<T>(jsonResponse,new JsonSerializerOptions(JsonSerializerDefaults.Web));
+                return result;
             }
         }
     }
