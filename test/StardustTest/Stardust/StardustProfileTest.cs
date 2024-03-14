@@ -19,7 +19,7 @@ namespace StardustTest.Stardust
         }
 
         [Fact]
-        public async void CreateAProfile()
+        public async void CreateProfile()
         {
             // Instruction in the README file to test this part
             if (!string.IsNullOrEmpty(apiKey))
@@ -28,7 +28,7 @@ namespace StardustTest.Stardust
                 var myApp = await stardustApplication.Get();
 
                 var stardustProfileApi = new StardustProfileAPI(apiKey);
-                var profileParam = new StardustProfileCreateParams(myApp.Id, "test");
+                var profileParam = new StardustProfileCreateParams(myApp.Id, "test create profile");
                 var profile = await stardustProfileApi.Create(profileParam);
                 Assert.NotNull(profile);
                 Assert.NotNull(profile.Id);
@@ -38,7 +38,7 @@ namespace StardustTest.Stardust
         }
 
         [Fact]
-        public async void GetAProfile()
+        public async void GetProfile()
         {
             // Instruction in the README file to test this part
             if (!string.IsNullOrEmpty(apiKey))
@@ -47,7 +47,7 @@ namespace StardustTest.Stardust
                 var myApp = await stardustApplication.Get();
 
                 var stardustProfileApi = new StardustProfileAPI(apiKey);
-                var profileParam = new StardustProfileCreateParams(myApp.Id, "test");
+                var profileParam = new StardustProfileCreateParams(myApp.Id, "test get profile");
                 // create profile
                 var profile = await stardustProfileApi.Create(profileParam);
                 // get it to test if value are the same
@@ -55,6 +55,26 @@ namespace StardustTest.Stardust
                 Assert.Equal(profile.Id, getProfile.Id);
                 Assert.Equal(profile.Name, getProfile.Name);
                 Assert.Equal(profile.Wallet.Id, getProfile.Wallet.Id);
+            }
+        }
+
+        [Fact]
+        public async void GetProfileToken()
+        {
+            // Instruction in the README file to test this part
+            if (!string.IsNullOrEmpty(apiKey))
+            {
+                var stardustApplication = new StardustApplicationAPI(apiKey);
+                var myApp = await stardustApplication.Get();
+
+                var stardustProfileApi = new StardustProfileAPI(apiKey);
+                var profileParam = new StardustProfileCreateParams(myApp.Id, "test profile token");
+                // create profile
+                var profile = await stardustProfileApi.Create(profileParam);
+                // get token
+                var token = await stardustProfileApi.GenerateClientJWT(profile.Id, 1000);
+                Assert.NotNull(token);
+                output.WriteLine($"Token : {token}");
             }
         }
 
