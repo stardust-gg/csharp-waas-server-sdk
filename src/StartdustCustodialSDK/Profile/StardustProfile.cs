@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 
 namespace StartdustCustodialSDK.Profile
 {
-    public class StardustProfile
+    public class StardustProfile : BaseStardust
     {
         private StardustWallet _wallet;
         [JsonIgnore]
@@ -24,14 +24,13 @@ namespace StartdustCustodialSDK.Profile
         public List<StardustWallet> Wallets { get; set; }
         //public List<stardustProfileIdentifier> Identifiers { get; set; }
         public string Name { get; set; }
-        public string ApiKey { get; set; }
 
         public StardustProfile()
         {
 
         }
 
-        public StardustProfile(string id, string rootUserId, string applicationId, long createdAt, List<StardustWallet> wallets = null, string name = null, string apiKey = null )
+        public StardustProfile(string id, string rootUserId, string applicationId, long createdAt, List<StardustWallet> wallets = null, string name = null, string apiKey = null)
         {
             Id = id;
             RootUserId = rootUserId;
@@ -41,16 +40,18 @@ namespace StartdustCustodialSDK.Profile
             Name = name;
             ApiKey = apiKey;
 
-           
+
         }
 
-        public void Init(string apiKey)
+        public override void Init(string apiKey)
         {
+            base.Init(apiKey);
             if (Wallets?.Count > 0)
             {
+                // set api key for each wallet and initialize field like profile
+                Wallets.ForEach(w => w.Init(apiKey));
                 _wallet = Wallets.Where(w => w.ProfileId == this.Id).FirstOrDefault();
             }
-            this.ApiKey = apiKey;
             this.StardustProfileAPI = new StardustProfileAPI(apiKey);
         }
     }

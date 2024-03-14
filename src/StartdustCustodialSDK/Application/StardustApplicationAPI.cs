@@ -17,7 +17,9 @@ namespace StartdustCustodialSDK.Application
 
         public async Task<StardustApplication> Get()
         {
-            return await ApiGet<StardustApplication>("application");
+            var application = await ApiGet<StardustApplication>("application");
+            application.Init(ApiKey);
+            return application;
         }
     }
 }
