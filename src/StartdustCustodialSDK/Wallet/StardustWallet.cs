@@ -13,19 +13,20 @@ namespace StartdustCustodialSDK.Wallet
         public string Id { get; set; }
         public string ProfileId { get; set; }
         public StardustApplication Application { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime? LastUsedAt { get; set; }
 
         [JsonIgnore]
         public StardustProfileAPI StardustProfileAPI { get; set; }
 
-        public StardustWallet(string id, string profileId, StardustApplication application, DateTime createdAt, DateTime? lastUsedAt = null, string apiKey = null)
+        public StardustWallet()
+        {
+
+        }
+
+        public StardustWallet(string id, string profileId, StardustApplication application, string apiKey = null)
         {
             Id = id;
             ProfileId = profileId;
             Application = application;
-            CreatedAt = createdAt;
-            LastUsedAt = lastUsedAt;
             ApiKey = apiKey;
             StardustProfileAPI = new StardustProfileAPI(apiKey);
         }

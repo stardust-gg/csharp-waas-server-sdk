@@ -20,7 +20,6 @@ namespace StartdustCustodialSDK.Profile
         public string Id { get; set; }
         public string RootUserId { get; set; }
         public string ApplicationId { get; set; }
-        public long CreatedAt { get; set; }
         public List<StardustWallet> Wallets { get; set; }
         //public List<stardustProfileIdentifier> Identifiers { get; set; }
         public string Name { get; set; }
@@ -30,12 +29,11 @@ namespace StartdustCustodialSDK.Profile
 
         }
 
-        public StardustProfile(string id, string rootUserId, string applicationId, long createdAt, List<StardustWallet> wallets = null, string name = null, string apiKey = null)
+        public StardustProfile(string id, string rootUserId, string applicationId, List<StardustWallet> wallets = null, string name = null, string apiKey = null)
         {
             Id = id;
             RootUserId = rootUserId;
             ApplicationId = applicationId;
-            CreatedAt = createdAt;
             Wallets = wallets;
             Name = name;
             ApiKey = apiKey;
