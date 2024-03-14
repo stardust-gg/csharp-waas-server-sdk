@@ -3,6 +3,7 @@ using StartdustCustodialSDK.Profile;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace StartdustCustodialSDK.Wallet
 {
@@ -15,6 +16,7 @@ namespace StartdustCustodialSDK.Wallet
         public DateTime? LastUsedAt { get; set; }
         public string ApiKey { get; set; }
 
+        [JsonIgnore]
         public StardustProfileAPI StardustProfileAPI { get; set; }
 
         public StardustWallet(string id, string profileId, StardustApplication application, DateTime createdAt, DateTime? lastUsedAt = null, string apiKey = null)

@@ -9,7 +9,7 @@ namespace StartdustCustodialSDK.Profile
 {
     public class StardustProfile
     {
-        private readonly StardustWallet _wallet;
+        private StardustWallet _wallet;
         [JsonIgnore]
         public StardustWallet Wallet { get { return _wallet; } }
         //public stardustProfileIdentifierAPI stardustProfileIdentifierAPI { get; set; }
@@ -21,7 +21,6 @@ namespace StartdustCustodialSDK.Profile
         public string RootUserId { get; set; }
         public string ApplicationId { get; set; }
         public long CreatedAt { get; set; }
-        [JsonIgnore]
         public List<StardustWallet> Wallets { get; set; }
         //public List<stardustProfileIdentifier> Identifiers { get; set; }
         public string Name { get; set; }
@@ -32,7 +31,7 @@ namespace StartdustCustodialSDK.Profile
 
         }
 
-        public StardustProfile(string id, string rootUserId, string applicationId, long createdAt, List<StardustWallet> wallets = null, string name = null, string apiKey = null)
+        public StardustProfile(string id, string rootUserId, string applicationId, long createdAt, List<StardustWallet> wallets = null, string name = null, string apiKey = null )
         {
             Id = id;
             RootUserId = rootUserId;
@@ -42,10 +41,16 @@ namespace StartdustCustodialSDK.Profile
             Name = name;
             ApiKey = apiKey;
 
-            if (wallets?.Count > 0)
+           
+        }
+
+        public void Init(string apiKey)
+        {
+            if (Wallets?.Count > 0)
             {
-                _wallet = wallets.Where(w => w.ProfileId == id).FirstOrDefault();
+                _wallet = Wallets.Where(w => w.ProfileId == this.Id).FirstOrDefault();
             }
+            this.ApiKey = apiKey;
             this.StardustProfileAPI = new StardustProfileAPI(apiKey);
         }
     }

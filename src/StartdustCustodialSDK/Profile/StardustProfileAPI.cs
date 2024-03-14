@@ -18,12 +18,16 @@ namespace StartdustCustodialSDK.Profile
 
         public async Task<StardustProfile> Create(StardustProfileCreateParams profileParams)
         {
-            return await ApiPost<StardustProfile, StardustProfileCreateParams>("profile", profileParams);
+            var profile = await ApiPost<StardustProfile, StardustProfileCreateParams>("profile", profileParams);
+            profile.Init(this.ApiKey);
+            return profile;
         }
 
         public async Task<StardustProfile> Get(string profileId)
         {
-            return await ApiGet<StardustProfile>($"profile/${profileId}?expand=identifiers,wallets");
+            var profile = await ApiGet<StardustProfile>($"profile/{profileId}?expand=identifiers,wallets");
+            profile.Init(this.ApiKey);
+            return profile;
         }
 
         public async Task<string> GenerateClientJWT(string profileId, long duration)
