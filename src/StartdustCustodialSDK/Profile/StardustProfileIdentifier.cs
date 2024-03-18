@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 
 namespace StartdustCustodialSDK.Profile
 {
-    public class StardustProfileIdentifier : BaseStardust
+    public class StardustProfileIdentifier
     {
         public string Id { get; set; }
         public string RootUserId { get; set; }
