@@ -3,7 +3,7 @@ using StartdustCustodialSDK.Application;
 using StartdustCustodialSDK.Profile;
 using System.Diagnostics;
 using Xunit.Abstractions;
-
+using StartdustCustodialSDK.Utils;
 namespace StardustTest.Stardust
 {
     public class StardustProfileTest
@@ -78,5 +78,25 @@ namespace StardustTest.Stardust
             }
         }
 
+
+        [Fact]
+        public async void CreateProfileIdentifier()
+        {
+            // Instruction in the README file to test this part
+            if (!string.IsNullOrEmpty(apiKey))
+            {
+                var stardustApplication = new StardustApplicationAPI(apiKey);
+                var myApp = await stardustApplication.Get();
+
+                var stardustProfileApi = new StardustProfileAPI(apiKey);
+                var profileParam = new StardustProfileCreateParams(myApp.Id, "test profile identifier");
+                // create profile
+                var profile = await stardustProfileApi.Create(profileParam);
+                var newIdentifier = await profile.AddIdentifier(StardustProfileIdentifierService.Twitter, "test identifier");
+                Assert.NotNull(newIdentifier);
+                Assert.Equal(newIdentifier.Service, StardustProfileIdentifierService.Twitter.DisplayName());
+                Assert.Equal(newIdentifier.Value, "test identifier");
+            }
+        }
     }
 }
