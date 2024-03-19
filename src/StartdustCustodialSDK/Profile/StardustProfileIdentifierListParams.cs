@@ -9,5 +9,14 @@ namespace StartdustCustodialSDK.Profile
         public string ProfileId { get; set; }
         public int Start { get; set; }
         public int Limit { get; set; }
+
+        public StardustProfileIdentifierListParams() { }
+
+        public StardustProfileIdentifierListParams(string profileId, int start, int limit)
+        {
+            ProfileId = profileId;
+            Start = start;
+            Limit = limit;
+        }   
     }
 }

@@ -1,9 +1,11 @@
-﻿using StartdustCustodialSDK.Wallet;
+﻿using StartdustCustodialSDK.Utils;
+using StartdustCustodialSDK.Wallet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace StartdustCustodialSDK.Profile
 {
@@ -54,6 +56,28 @@ namespace StartdustCustodialSDK.Profile
             }
             this.StardustProfileAPI = new StardustProfileAPI(apiKey);
             this.StardustProfileIdentifierAPI = new StardustProfileIdentifierAPI(apiKey);
+        }
+
+        public async Task<StardustProfileIdentifier> AddIdentifier(StardustProfileIdentifierService service, string value)
+        {
+            if (!StardustProfileIdentifier.ValidateIdentifier(service, value))
+            {
+                throw new Exception($"Invalid service {service}, please use StardustProfileIdentifierService enums");
+            }
+            var newProfileIdentifier = new StardustProfileIdentifierCreateParams(this.Id, service.DisplayName(), value);
+            return await this.StardustProfileIdentifierAPI.Create(newProfileIdentifier);
+        }
+
+        public async Task<StardustProfileIdentifier> AddCustomIdentifier(string service, string value)
+        {
+            var newProfileIdentifier = new StardustProfileIdentifierCreateParams(this.Id, $"csharp-sdk:{service}", value);
+            return await this.StardustProfileIdentifierAPI.Create(newProfileIdentifier);
+        }
+
+        public async Task<List<StardustProfileIdentifier>> GetIdentifiers(int start = 0, int limit = 10)
+        {
+            var listParams = new StardustProfileIdentifierListParams(this.Id, start, limit);
+            return await this.StardustProfileIdentifierAPI.List(listParams);
         }
     }
 }
