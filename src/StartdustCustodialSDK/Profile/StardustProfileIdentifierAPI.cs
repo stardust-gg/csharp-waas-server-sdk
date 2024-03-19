@@ -1,8 +1,12 @@
 ﻿using StartdustCustodialSDK.Application;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Net.Http;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace StartdustCustodialSDK.Profile
 {
@@ -30,8 +34,12 @@ namespace StartdustCustodialSDK.Profile
 
         public async Task<List<StardustProfileIdentifier>> List(StardustProfileIdentifierListParams profileIdentifierListParams)
         {
-            var profileIdentifiers = await ApiGet<List<StardustProfileIdentifier>>($"profile/identifier/{profileIdentifierListParams}");
-            return profileIdentifiers;
+            var data = new Dictionary<string, string>();
+            data.Add("profileId", profileIdentifierListParams.ProfileId);
+            data.Add("start", profileIdentifierListParams.Start.ToString());
+            data.Add("limit", profileIdentifierListParams.Limit.ToString());          
+            var profileIdentifiers = await ApiGet<StartdustProfileIdentifierListResult>($"profile/identifier",data);
+            return profileIdentifiers.Results;
         }
 
     }

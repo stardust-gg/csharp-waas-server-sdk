@@ -36,6 +36,11 @@ namespace StartdustCustodialSDK
                 {
                     // format query parameters to match html format 
                     string queryString = string.Join("&", query.Select(p => $"{p.Key}={Uri.EscapeDataString(p.Value)}"));
+                    
+                    // for test
+                    //var result = await httpClient.GetAsync($"{endpoint}?{queryString}");
+                    //var json =await result.Content.ReadAsStringAsync();
+
                     return await httpClient.GetFromJsonAsync<T>($"{endpoint}?{queryString}");
                 }
                 else

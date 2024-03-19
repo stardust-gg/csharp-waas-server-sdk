@@ -96,6 +96,13 @@ namespace StardustTest.Stardust
                 Assert.NotNull(newIdentifier);
                 Assert.Equal(newIdentifier.Service, StardustProfileIdentifierService.Twitter.DisplayName());
                 Assert.Equal(newIdentifier.Value, "test identifier");
+
+                await profile.AddCustomIdentifier("Metamask", "test identifier 2");
+
+                // find all created identifier for this profile
+                var getListIdentifier = await profile.GetIdentifiers();
+                Assert.Equal(getListIdentifier.Count, 2);
+                Assert.Contains(getListIdentifier, x => x.Service == $"csharp-sdk:Metamask");
             }
         }
     }
