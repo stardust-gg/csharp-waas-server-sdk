@@ -18,7 +18,7 @@ namespace StartdustCustodialSDK.Profile
 
         public async Task<StardustProfile> Create(StardustProfileCreateParams profileParams)
         {
-            var profile = await ApiPost<StardustProfile, StardustProfileCreateParams>("profile", profileParams);
+            var profile = await ApiPost<StardustProfileCreateParams, StardustProfile>("profile", profileParams);
             profile.Init(this.ApiKey);
             return profile;
         }
@@ -32,7 +32,7 @@ namespace StartdustCustodialSDK.Profile
 
         public async Task<string> GenerateClientJWT(string profileId, long duration)
         {
-            var result = await ApiPost<StardustToken, StardustTokenParams>($"profile/{profileId}/authenticate", new StardustTokenParams(duration));
+            var result = await ApiPost<StardustTokenParams, StardustToken>($"profile/{profileId}/authenticate", new StardustTokenParams(duration));
             return result.Jwt;
         }
 

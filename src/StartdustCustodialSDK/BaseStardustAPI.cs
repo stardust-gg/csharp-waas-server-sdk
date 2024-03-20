@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace StartdustCustodialSDK
 {
@@ -25,32 +22,36 @@ namespace StartdustCustodialSDK
 
         }
 
-        public async Task<T> ApiGet<T>(string endpoint, Dictionary<string, string> query = null) where T : class
+        public async Task<T> ApiGet<T>(string endpoint) where T : class
         {
 
             using (var httpClient = new HttpClient())
             {
                 httpClient.BaseAddress = new Uri(Url);
                 httpClient.DefaultRequestHeaders.Add("x-api-key", this.ApiKey);
-                if (query?.Count > 0)
-                {
-                    // format query parameters to match html format 
-                    string queryString = string.Join("&", query.Select(p => $"{p.Key}={Uri.EscapeDataString(p.Value)}"));
-                    
-                    // for test
-                    //var result = await httpClient.GetAsync($"{endpoint}?{queryString}");
-                    //var json =await result.Content.ReadAsStringAsync();
-
-                    return await httpClient.GetFromJsonAsync<T>($"{endpoint}?{queryString}");
-                }
-                else
-                {
-                    return await httpClient.GetFromJsonAsync<T>(endpoint);
-                }
+                return await httpClient.GetFromJsonAsync<T>(endpoint);
             }
         }
 
-        public async Task<T> ApiPost<T, U>(string endpoint, U data = null) where T : class where U : class
+        public async Task<TOut> ApiGet<TIn, TOut>(string endpoint, TIn data) where TOut : class where TIn : class
+        {
+
+            using (var httpClient = new HttpClient())
+            {
+                httpClient.BaseAddress = new Uri(Url);
+                httpClient.DefaultRequestHeaders.Add("x-api-key", this.ApiKey);
+                // format query parameters to match html format 
+                string queryString = ToQueryString(data);
+
+                // for test
+                //var result = await httpClient.GetAsync($"{endpoint}?{queryString}");
+                //var json =await result.Content.ReadAsStringAsync();
+
+                return await httpClient.GetFromJsonAsync<TOut>($"{endpoint}?{queryString}");
+            }
+        }
+
+        public async Task<TOut> ApiPost<TIn, TOut>(string endpoint, TIn data = null) where TOut : class where TIn : class
         {
             using (var httpClient = new HttpClient())
             {
@@ -59,7 +60,7 @@ namespace StartdustCustodialSDK
                 HttpResponseMessage response;
                 if (data != null)
                 {
-                    response = await httpClient.PostAsJsonAsync<U>(endpoint, data);
+                    response = await httpClient.PostAsJsonAsync<TIn>(endpoint, data);
                 }
                 else
                 {
@@ -67,8 +68,26 @@ namespace StartdustCustodialSDK
                 }
                 response.EnsureSuccessStatusCode();
                 var jsonResponse = await response.Content.ReadAsStringAsync();
-                T result = JsonSerializer.Deserialize<T>(jsonResponse,new JsonSerializerOptions(JsonSerializerDefaults.Web));
+                TOut result = JsonSerializer.Deserialize<TOut>(jsonResponse, new JsonSerializerOptions(JsonSerializerDefaults.Web));
                 return result;
+            }
+        }
+
+        private string ToQueryString<T>(T obj)
+        {
+            string jsonString = JsonSerializer.Serialize<T>(obj, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                WriteIndented = true
+            });
+            using (var jsonObject = JsonDocument.Parse(jsonString))
+            {
+                var properties = jsonObject
+                    .RootElement.EnumerateObject()
+                    .Where(p => p.Value.ValueKind != JsonValueKind.Null)
+                    .Select(p =>
+                        $"{HttpUtility.UrlEncode(p.Name)}={HttpUtility.UrlEncode(p.Value.ToString())}");
+                return string.Join("&", properties);
             }
         }
     }

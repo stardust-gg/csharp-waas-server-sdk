@@ -22,7 +22,7 @@ namespace StartdustCustodialSDK.Profile
 
         public async Task<StardustProfileIdentifier> Create(StardustProfileIdentifierCreateParams profileIdentifierParams)
         {
-            var profileIdentifier = await ApiPost<StardustProfileIdentifier, StardustProfileIdentifierCreateParams>("profile/identifier", profileIdentifierParams);
+            var profileIdentifier = await ApiPost<StardustProfileIdentifierCreateParams, StardustProfileIdentifier>("profile/identifier", profileIdentifierParams);
             return profileIdentifier;
         }
 
@@ -34,11 +34,7 @@ namespace StartdustCustodialSDK.Profile
 
         public async Task<List<StardustProfileIdentifier>> List(StardustProfileIdentifierListParams profileIdentifierListParams)
         {
-            var data = new Dictionary<string, string>();
-            data.Add("profileId", profileIdentifierListParams.ProfileId);
-            data.Add("start", profileIdentifierListParams.Start.ToString());
-            data.Add("limit", profileIdentifierListParams.Limit.ToString());          
-            var profileIdentifiers = await ApiGet<StartdustProfileIdentifierListResult>($"profile/identifier",data);
+            var profileIdentifiers = await ApiGet<StardustProfileIdentifierListParams, StartdustProfileIdentifierListResult>($"profile/identifier", profileIdentifierListParams);
             return profileIdentifiers.Results;
         }
 
