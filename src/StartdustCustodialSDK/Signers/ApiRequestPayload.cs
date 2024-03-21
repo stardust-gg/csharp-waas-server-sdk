@@ -8,5 +8,14 @@ namespace StartdustCustodialSDK.Signers
     {
         public string WalletId { get; set; }
         public ChainType ChainType { get; set; }
+
+        public ApiRequestPayload() { }
+
+        public ApiRequestPayload(string walletId, ChainType chainType)
+        {
+
+            WalletId = walletId;
+            ChainType = chainType;
+        }
     }
 }

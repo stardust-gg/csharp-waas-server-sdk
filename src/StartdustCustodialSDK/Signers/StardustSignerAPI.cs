@@ -31,9 +31,9 @@ namespace StartdustCustodialSDK.Signers
             return await ApiPost<SignRequestPayload<string>, string>("sign/message", payload);
         }
 
-        public async Task<string> GetPublicKey(SignRequestPayload<byte[]> payload)
+        public async Task<string> SignMessage(SignRequestPayload<byte[]> payload)
         {
-            return await ApiPost<SignRequestPayload<byte[]>, string>("wallet/public-key", payload);
+            return await ApiPost<SignRequestPayload<byte[]>, string>("sign/message", payload);
         }
     }
 }

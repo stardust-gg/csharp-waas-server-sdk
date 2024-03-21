@@ -9,6 +9,7 @@ namespace StartdustCustodialSDK.Signers
     {
         public abstract Task<string> GetPublicKey();
         public abstract Task<string> GetAddress();
-        public abstract Task<string> SignRaw<T>(T message);
+        public abstract Task<string> SignRaw(byte[] message);
+        public abstract Task<string> SignRaw(string message);
     }
 }
