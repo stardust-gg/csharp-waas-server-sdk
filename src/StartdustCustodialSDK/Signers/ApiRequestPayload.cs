@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StartdustCustodialSDK.Utils;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,7 +8,7 @@ namespace StartdustCustodialSDK.Signers
     public class ApiRequestPayload
     {
         public string WalletId { get; set; }
-        public ChainType ChainType { get; set; }
+        public string ChainType { get; set; }
 
         public ApiRequestPayload() { }
 
@@ -15,7 +16,7 @@ namespace StartdustCustodialSDK.Signers
         {
 
             WalletId = walletId;
-            ChainType = chainType;
+            ChainType = chainType.DisplayName();
         }
     }
 }

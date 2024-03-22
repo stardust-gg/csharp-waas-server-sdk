@@ -1,4 +1,7 @@
 ﻿using Nethereum.Hex.HexConvertors.Extensions;
+using Nethereum.Model;
+using Nethereum.Signer;
+using Nethereum.Signer.Crypto;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,93 +10,57 @@ using System.Threading.Tasks;
 
 namespace StartdustCustodialSDK.Signers.Nethereum
 {
-    public class NethereumStardustSigner : AbstractStardustSigner
+    public class NethereumStardustSigner : EthExternalSignerBase
     {
         public string WalletId { get; set; }
-
         public StardustSignerAPI Api { get; set; }
-
         public ChainType ChainType { get; set; }
+        public string ChainId { get; set; }
+
+        public override bool Supported1559 => true;
+        public override ExternalSignerTransactionFormat ExternalSignerTransactionFormat { get; protected set; } = ExternalSignerTransactionFormat.RLP;
+        public override bool CalculatesV { get; protected set; } = false;
 
         public NethereumStardustSigner()
         {
 
         }
 
-        public NethereumStardustSigner(string walletId, string apiKey)
+        public NethereumStardustSigner(string apiKey, string walletId, string chainId = "1", ChainType chainType = ChainType.Evm)
         {
             this.WalletId = walletId;
             this.Api = new StardustSignerAPI(apiKey);
-            this.ChainType = ChainType.Evm;
+            this.ChainId = chainId;
+            this.ChainType = chainType;
         }
 
-        public override Task<string> GetAddress()
+        protected override async Task<byte[]> GetPublicKeyAsync()
         {
             var payload = new ApiRequestPayload(this.WalletId, this.ChainType);
-            return Api.GetAddress(payload);
+            var publicKey = await Api.GetPublicKey(payload);
+            return publicKey.HexToByteArray();
         }
 
-        public override Task<string> GetPublicKey()
+        protected override async Task<ECDSASignature> SignExternallyAsync(byte[] bytes)
         {
-            var payload = new ApiRequestPayload(this.WalletId, this.ChainType);
-            return Api.GetPublicKey(payload);
+            var signPayload = new SignRequestPayload<byte[]>(WalletId, ChainType, ChainId, bytes);
+            var signedMessage = await Api.SignMessage(signPayload);
+            return ECDSASignatureFactory.FromComponents(signedMessage.HexToByteArray()).MakeCanonical();
         }
 
-        public override async Task<string> SignRaw(byte[] message)
+        public override async Task SignAsync(LegacyTransactionChainId transaction)
         {
-            var messagePrefix = "\x19Ethereum Signed Message:\n";
-
-            string messageContent = message.ToHex().Replace("0x", "");
-            int messageLen = message.Length;
-
-            UTF8Encoding.UTF8.GetBytes(messagePrefix);
-
-            var payload = new SignRequestPayload<byte[]>() { ChainType = this.ChainType, Message = message, WalletId = WalletId };
-            var result = await Api.SignMessage(payload);
-            return result;
+            await SignRLPTransactionAsync(transaction);
         }
 
-        public override Task<string> SignRaw(string message)
+        public override async Task SignAsync(LegacyTransaction transaction)
         {
-            throw new NotImplementedException();
+            await SignRLPTransactionAsync(transaction);
         }
 
-        //private string CreatePrefixedMessage<T>(T message)
-        //{
-        //    var messagePrefix = "\x19Ethereum Signed Message:\n";
-
-        //    string messageContent;
-        //    int messageLen;
-
-        //    if (message is byte[])
-        //    {
-        //        var messageByte = message as byte[];
-        //        messageContent = messageByte.ToHex().Replace("0x", "");
-        //        messageLen = messageByte.Length;
-        //    }
-        //    else
-        //    {
-        //        var messageString = message as string;
-        //        messageContent = IsHexString(messageString)
-        //          ? messageString.Replace("0x", "")
-        //          : convertStringToHexString(message).replace(/ ^0x /, '');
-        //        messageLen = messageContent.length / 2; // Byte length for hex string
-        //    }
-
-        //    var prefixedMessage =
-        //      convertStringToHexString(messagePrefix) +
-        //      new HexString(convertStringToHexString(String(messageLen))).strip() +
-        //      new HexString(messageContent).strip();
-
-        //    return prefixedMessage;
-        //}
-
-        private bool IsHexString(string str)
+        public override async Task SignAsync(Transaction1559 transaction)
         {
-            var hexRegex = "^0x[a-fA-F0-9]+$";
-            return Regex.Match(str, hexRegex).Success;
+            await SignRLPTransactionAsync(transaction);
         }
-
-       
     }
 }
