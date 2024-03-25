@@ -43,9 +43,11 @@ namespace StartdustCustodialSDK
                 // format query parameters to match html format 
                 string queryString = ToQueryString(data);
 
+#if DEBUG
                 // for test
-                //var result = await httpClient.GetAsync($"{endpoint}?{queryString}");
-                //var json =await result.Content.ReadAsStringAsync();
+                var result = await httpClient.GetAsync($"{endpoint}?{queryString}");
+                var json =await result.Content.ReadAsStringAsync();
+#endif
 
                 return await httpClient.GetFromJsonAsync<TOut>($"{endpoint}?{queryString}");
             }

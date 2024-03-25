@@ -18,22 +18,26 @@ namespace StartdustCustodialSDK.Signers
 
         public async Task<string> GetAddress(ApiRequestPayload payload)
         {
-            return await ApiGet<ApiRequestPayload, string>("wallet/address", payload);
+            var response = await ApiGet<ApiRequestPayload, AddressResponse>("wallet/address", payload);
+            return response.Address;
         }
 
         public async Task<string> GetPublicKey(ApiRequestPayload payload)
         {
-            return await ApiGet<ApiRequestPayload, string>("wallet/public-key", payload);
+            var response = await ApiGet<ApiRequestPayload, PublicKeyResponse>("wallet/public-key", payload);
+            return response.PublicKey;
         }
 
         public async Task<string> SignMessage(SignRequestPayload<string> payload)
         {
-            return await ApiPost<SignRequestPayload<string>, string>("sign/message", payload);
+            var response = await ApiPost<SignRequestPayload<string>, SignatureResponse>("sign/message", payload);
+            return response.Signature;
         }
 
         public async Task<string> SignMessage(SignRequestPayload<byte[]> payload)
         {
-            return await ApiPost<SignRequestPayload<byte[]>, string>("sign/message", payload);
+            var response = await ApiPost<SignRequestPayload<byte[]>, SignatureResponse>("sign/message", payload);
+            return response.Signature;
         }
     }
 }

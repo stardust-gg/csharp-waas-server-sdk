@@ -9,6 +9,7 @@ using StardustTest.Config;
 using StartdustCustodialSDK.Application;
 using StartdustCustodialSDK.Signers.Nethereum;
 using System.Diagnostics;
+using System.Security.Cryptography.X509Certificates;
 using Xunit.Abstractions;
 
 namespace StardustTest.Stardust
@@ -50,17 +51,19 @@ namespace StardustTest.Stardust
 
                 output.WriteLine(externalAccount.Address);
                 var toAddress = "0x0f571D2625b503BB7C1d2b5655b483a2Fa696fEf"; // Replace with the address of the recipient
-                var amountToSend = 0.1m; // Replace with the amount to send in ether
+                var balance = await web3.Eth.GetBalance.SendRequestAsync(toAddress);
+                var amountToSend = 0.001m; // Replace with the amount to send in ether
 
-                var gasPriceGwei = 10; // Replace with your desired gas price in Gwei
+                var gasPriceGwei = 1; // Replace with your desired gas price in Gwei
                 var gasLimit = 21000; // Replace with your desired gas limit
 
+                var amount = Web3.Convert.ToWei(amountToSend);
                 var transactionInput = new Nethereum.RPC.Eth.DTOs.TransactionInput()
                 {
                     From = externalAccount.Address,
                     To = toAddress,
                     ChainId = new HexBigInteger("0x13881"),
-                    Value = new HexBigInteger(Web3.Convert.ToWei(amountToSend)),
+                    Value = amount.ToHexBigInteger(),
                     GasPrice = new HexBigInteger(Web3.Convert.ToWei(gasPriceGwei, UnitConversion.EthUnit.Gwei)),
                     Gas = new HexBigInteger(gasLimit)
                 };
@@ -72,8 +75,9 @@ namespace StardustTest.Stardust
 
                 var transaction = await web3.Eth.Transactions.SendRawTransaction.SendRequestAsync(signedTransaction);
                 var receipt = await GetReceiptAsync(web3, transaction);
-                var balance = await web3.Eth.GetBalance.SendRequestAsync(toAddress);
-                Assert.True(balance.Value > 0);
+                var balanceAfter = await web3.Eth.GetBalance.SendRequestAsync(toAddress);
+                var sendAmount = balanceAfter.Value - balance.Value;
+                Assert.Equal(sendAmount, amount);
 
             }
         }
