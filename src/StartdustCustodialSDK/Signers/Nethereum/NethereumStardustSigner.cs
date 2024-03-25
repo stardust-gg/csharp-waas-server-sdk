@@ -43,9 +43,10 @@ namespace StartdustCustodialSDK.Signers.Nethereum
 
         protected override async Task<ECDSASignature> SignExternallyAsync(byte[] bytes)
         {
-            var signPayload = new SignRequestPayload<byte[]>(WalletId, ChainType, ChainId, bytes);
+            var signPayload = new SignRequestPayload<string>(WalletId, ChainType, ChainId, bytes.ToHex());
             var signedMessage = await Api.SignMessage(signPayload);
-            return ECDSASignatureFactory.FromComponents(signedMessage.HexToByteArray()).MakeCanonical();
+            var signature = ECDSASignatureFactory.FromComponents(signedMessage.HexToByteArray()).MakeCanonical();
+            return signature;
         }
 
         public override async Task SignAsync(LegacyTransactionChainId transaction)

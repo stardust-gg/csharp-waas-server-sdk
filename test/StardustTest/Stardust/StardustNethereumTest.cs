@@ -29,7 +29,7 @@ namespace StardustTest.Stardust
         }
 
         [Fact]
-        public async void GetMyApp()
+        public async void SendTransaction()
         {
             // Use wallet id with credit on mumbai
             if (!string.IsNullOrEmpty(apiKey) && !string.IsNullOrEmpty(walletId))
@@ -48,6 +48,10 @@ namespace StardustTest.Stardust
                 // Initialize Web3
                 var web3 = new Web3(externalAccount, rpcClient);
                 web3.TransactionManager.UseLegacyAsDefault = true;
+
+                var getAddress = await nethereumSigner.GetAddressAsync();
+
+                Assert.Equal(externalAccount.Address, getAddress);
 
                 output.WriteLine(externalAccount.Address);
                 var toAddress = "0x0f571D2625b503BB7C1d2b5655b483a2Fa696fEf"; // Replace with the address of the recipient
