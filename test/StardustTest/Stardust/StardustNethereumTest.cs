@@ -2,6 +2,7 @@ using Nethereum.BlockchainProcessing.BlockStorage.Entities;
 using Nethereum.Hex.HexTypes;
 using Nethereum.JsonRpc.Client;
 using Nethereum.RPC.Eth.DTOs;
+using Nethereum.Signer;
 using Nethereum.Util;
 using Nethereum.Web3;
 using Nethereum.Web3.Accounts;
@@ -83,6 +84,27 @@ namespace StardustTest.Stardust
                 var sendAmount = balanceAfter.Value - balance.Value;
                 Assert.Equal(sendAmount, amount);
 
+            }
+        }
+
+        [Fact]
+        public async void SignMessage()
+        {
+            // Use wallet id with credit on mumbai
+            if (!string.IsNullOrEmpty(apiKey) && !string.IsNullOrEmpty(walletId))
+            {
+
+                // use walletId with token to test this part (80001 for mumbai)
+                var nethereumSigner = new NethereumStardustSigner(apiKey, walletId);
+
+                // Initialize Web3
+                var signer1 = new EthereumMessageSigner();
+
+                var msg1 = "wee test message 18/09/2017 02:55PM";
+                var result = await nethereumSigner.SignMessage(msg1);
+                var addressRec1 = signer1.EncodeUTF8AndEcRecover(msg1, result);
+                var getAddress = await nethereumSigner.GetAddressAsync();
+                Assert.Equal(getAddress, addressRec1);
             }
         }
 
