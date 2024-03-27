@@ -94,20 +94,28 @@ namespace StardustTest.Stardust
         [Fact]
         public async void SignMessage()
         {
-            // Use wallet id with credit on mumbai
             if (!string.IsNullOrEmpty(apiKey) && !string.IsNullOrEmpty(walletId))
             {
-
-                // use walletId with token to test this part (80001 for mumbai)
                 var nethereumSigner = new NethereumStardustSigner(apiKey, walletId);
-
-                // Initialize Web3
                 var signer1 = new MessageSigner();
-
-
                 var msg1 = "wee test message 18/09/2017 02:55PM";
                 var result = await nethereumSigner.SignMessage(msg1);
                 var addressRec1 = signer1.HashAndEcRecover(msg1, result);
+                var getAddress = await nethereumSigner.GetAddressAsync();
+                Assert.Equal(getAddress, addressRec1);
+            }
+        }
+
+        [Fact]
+        public async void SignPrefixedMessage()
+        {
+            if (!string.IsNullOrEmpty(apiKey) && !string.IsNullOrEmpty(walletId))
+            {
+                var nethereumSigner = new NethereumStardustSigner(apiKey, walletId);
+                var signer1 = new EthereumMessageSigner();
+                var msg1 = "wee test message 18/09/2017 02:55PM";
+                var result = await nethereumSigner.SignMessageAndPrefix(Encoding.UTF8.GetBytes(msg1));
+                var addressRec1 = signer1.EncodeUTF8AndEcRecover(msg1, result);
                 var getAddress = await nethereumSigner.GetAddressAsync();
                 Assert.Equal(getAddress, addressRec1);
             }

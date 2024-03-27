@@ -70,5 +70,24 @@ namespace StartdustCustodialSDK.Signers.Nethereum
             var signedMessage = await Api.SignMessage(signPayload);
             return signedMessage;
         }
+
+        public async Task<string> SignMessageAndPrefix(byte[] message)
+        {
+            var signPayload = new SignRequestPayload<string>(WalletId, ChainType, ChainId, PrefixedMessage(message).ToHex());
+            var signedMessage = await Api.SignMessage(signPayload);
+            return signedMessage;
+        }
+
+        public byte[] PrefixedMessage(byte[] message)
+        {
+            var byteList = new List<byte>();
+            var bytePrefix = "0x19".HexToByteArray();
+            var textBytePrefix = Encoding.UTF8.GetBytes("Ethereum Signed Message:\n" + message.Length);
+
+            byteList.AddRange(bytePrefix);
+            byteList.AddRange(textBytePrefix);
+            byteList.AddRange(message);
+            return byteList.ToArray();
+        }
     }
 }
