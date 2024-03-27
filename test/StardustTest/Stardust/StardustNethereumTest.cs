@@ -1,6 +1,9 @@
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
+using Nethereum.Accounts.AccountMessageSigning;
 using Nethereum.BlockchainProcessing.BlockStorage.Entities;
 using Nethereum.Hex.HexTypes;
 using Nethereum.JsonRpc.Client;
+using Nethereum.RPC.AccountSigning;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Signer;
 using Nethereum.Util;
@@ -11,6 +14,7 @@ using StartdustCustodialSDK.Application;
 using StartdustCustodialSDK.Signers.Nethereum;
 using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using Xunit.Abstractions;
 
 namespace StardustTest.Stardust
@@ -98,11 +102,12 @@ namespace StardustTest.Stardust
                 var nethereumSigner = new NethereumStardustSigner(apiKey, walletId);
 
                 // Initialize Web3
-                var signer1 = new EthereumMessageSigner();
+                var signer1 = new MessageSigner();
+
 
                 var msg1 = "wee test message 18/09/2017 02:55PM";
                 var result = await nethereumSigner.SignMessage(msg1);
-                var addressRec1 = signer1.EncodeUTF8AndEcRecover(msg1, result);
+                var addressRec1 = signer1.HashAndEcRecover(msg1, result);
                 var getAddress = await nethereumSigner.GetAddressAsync();
                 Assert.Equal(getAddress, addressRec1);
             }

@@ -66,11 +66,7 @@ namespace StartdustCustodialSDK.Signers.Nethereum
 
         public async Task<string> SignMessage(string message)
         {
-            var ethereumMessageSigner = new EthereumMessageSigner();
-            // Integrated like nethereum
-            // https://github.com/Nethereum/Nethereum/blob/0576a781782e4344254c7d97f20ea07d3642f903/src/Nethereum.Signer/EthereumMessageSigner.cs#L43C50-L43C82
-            var messagePrefixed = ethereumMessageSigner.HashPrefixedMessage(Encoding.UTF8.GetBytes(message));
-            var signPayload = new SignRequestPayload<string>(WalletId, ChainType, ChainId, messagePrefixed.ToHex());
+            var signPayload = new SignRequestPayload<string>(WalletId, ChainType, ChainId, Encoding.UTF8.GetBytes(message).ToHex());
             var signedMessage = await Api.SignMessage(signPayload);
             return signedMessage;
         }
