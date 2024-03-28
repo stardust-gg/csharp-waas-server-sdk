@@ -66,14 +66,36 @@ namespace StartdustCustodialSDK.Signers.Nethereum
 
         public async Task<string> SignMessage(string message)
         {
-            var signPayload = new SignRequestPayload<string>(WalletId, ChainType, ChainId, Encoding.UTF8.GetBytes(message).ToHex());
-            var signedMessage = await Api.SignMessage(signPayload);
-            return signedMessage;
+            var messageUtf8 = Encoding.UTF8.GetBytes(message);
+            return await PrefixAndSign(messageUtf8);
         }
 
-        public async Task<string> SignMessageAndPrefix(byte[] message)
+        public async Task<string> SignMessage(byte[] message)
         {
-            var signPayload = new SignRequestPayload<string>(WalletId, ChainType, ChainId, PrefixedMessage(message).ToHex());
+            return await PrefixAndSign(message);
+        }
+
+
+        public async Task<string> SignRaw(string message)
+        {
+            var messageUtf8 = Encoding.UTF8.GetBytes(message);
+            return await Sign(messageUtf8);
+        }
+
+        public async Task<string> SignRaw(byte[] message)
+        {
+            return await Sign(message);
+        }
+
+        private async Task<string> PrefixAndSign(byte[] message)
+        {
+            var messagePrefixed = PrefixedMessage(message);
+            return await Sign(messagePrefixed);
+        }
+
+        private async Task<string> Sign(byte[] message)
+        {
+            var signPayload = new SignRequestPayload<string>(WalletId, ChainType, ChainId, message.ToHex());
             var signedMessage = await Api.SignMessage(signPayload);
             return signedMessage;
         }

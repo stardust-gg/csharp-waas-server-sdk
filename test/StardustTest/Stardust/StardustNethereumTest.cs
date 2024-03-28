@@ -63,7 +63,7 @@ namespace StardustTest.Stardust
                 var balance = await web3.Eth.GetBalance.SendRequestAsync(toAddress);
                 var amountToSend = 0.001m; // Replace with the amount to send in ether
 
-                var gasPriceGwei = 1; // Replace with your desired gas price in Gwei
+                var gasPriceGwei = 2; // Replace with your desired gas price in Gwei
                 var gasLimit = 21000; // Replace with your desired gas limit
 
                 var amount = Web3.Convert.ToWei(amountToSend);
@@ -99,7 +99,7 @@ namespace StardustTest.Stardust
                 var nethereumSigner = new NethereumStardustSigner(apiKey, walletId);
                 var signer1 = new MessageSigner();
                 var msg1 = "wee test message 18/09/2017 02:55PM";
-                var result = await nethereumSigner.SignMessage(msg1);
+                var result = await nethereumSigner.SignRaw(msg1);
                 var addressRec1 = signer1.HashAndEcRecover(msg1, result);
                 var getAddress = await nethereumSigner.GetAddressAsync();
                 Assert.Equal(getAddress, addressRec1);
@@ -114,7 +114,7 @@ namespace StardustTest.Stardust
                 var nethereumSigner = new NethereumStardustSigner(apiKey, walletId);
                 var signer1 = new EthereumMessageSigner();
                 var msg1 = "wee test message 18/09/2017 02:55PM";
-                var result = await nethereumSigner.SignMessageAndPrefix(Encoding.UTF8.GetBytes(msg1));
+                var result = await nethereumSigner.SignMessage(msg1);
                 var addressRec1 = signer1.EncodeUTF8AndEcRecover(msg1, result);
                 var getAddress = await nethereumSigner.GetAddressAsync();
                 Assert.Equal(getAddress, addressRec1);
