@@ -2,6 +2,7 @@
 using Nethereum.Model;
 using Nethereum.Signer;
 using Nethereum.Signer.Crypto;
+using StartdustCustodialSDK.Signers.Evm;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,6 +17,7 @@ namespace StartdustCustodialSDK.Signers.Nethereum
         public StardustSignerAPI Api { get; set; }
         public ChainType ChainType { get; set; }
         public string ChainId { get; set; }
+        public EvmStardustSigner EvmSigner { get; set; }
 
         public override bool Supported1559 => true;
         public override ExternalSignerTransactionFormat ExternalSignerTransactionFormat { get; protected set; } = ExternalSignerTransactionFormat.RLP;
@@ -32,6 +34,7 @@ namespace StartdustCustodialSDK.Signers.Nethereum
             this.Api = new StardustSignerAPI(apiKey);
             this.ChainId = chainId;
             this.ChainType = chainType;
+            this.EvmSigner = new EvmStardustSigner(apiKey, walletId, chainId, chainType);
         }
 
         protected override async Task<byte[]> GetPublicKeyAsync()
@@ -64,52 +67,5 @@ namespace StartdustCustodialSDK.Signers.Nethereum
             await SignRLPTransactionAsync(transaction);
         }
 
-        public async Task<string> SignMessage(string message)
-        {
-            var messageUtf8 = Encoding.UTF8.GetBytes(message);
-            return await PrefixAndSign(messageUtf8);
-        }
-
-        public async Task<string> SignMessage(byte[] message)
-        {
-            return await PrefixAndSign(message);
-        }
-
-
-        public async Task<string> SignRaw(string message)
-        {
-            var messageUtf8 = Encoding.UTF8.GetBytes(message);
-            return await Sign(messageUtf8);
-        }
-
-        public async Task<string> SignRaw(byte[] message)
-        {
-            return await Sign(message);
-        }
-
-        private async Task<string> PrefixAndSign(byte[] message)
-        {
-            var messagePrefixed = PrefixedMessage(message);
-            return await Sign(messagePrefixed);
-        }
-
-        private async Task<string> Sign(byte[] message)
-        {
-            var signPayload = new SignRequestPayload<string>(WalletId, ChainType, ChainId, message.ToHex());
-            var signedMessage = await Api.SignMessage(signPayload);
-            return signedMessage;
-        }
-
-        public byte[] PrefixedMessage(byte[] message)
-        {
-            var byteList = new List<byte>();
-            var bytePrefix = "0x19".HexToByteArray();
-            var textBytePrefix = Encoding.UTF8.GetBytes("Ethereum Signed Message:\n" + message.Length);
-
-            byteList.AddRange(bytePrefix);
-            byteList.AddRange(textBytePrefix);
-            byteList.AddRange(message);
-            return byteList.ToArray();
-        }
     }
 }
