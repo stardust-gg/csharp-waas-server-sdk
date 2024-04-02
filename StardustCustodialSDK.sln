@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StartdustCustodialSDK", "src\StartdustCustodialSDK\StartdustCustodialSDK.csproj", "{41FCB5A4-8F44-4510-95F0-828EC7398057}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StartdustCustodialSDK", "src\StartdustCustodialSDK\StartdustCustodialSDK.csproj", "{41FCB5A4-8F44-4510-95F0-828EC7398057}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StardustTest", "test\StardustTest\StardustTest.csproj", "{3CAB20B7-2FFF-4E6E-9466-30FD44F69F98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StardustTest", "test\StardustTest\StardustTest.csproj", "{3CAB20B7-2FFF-4E6E-9466-30FD44F69F98}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebsiteExample.Server", "examples\WebsiteExample\WebsiteExample.Server\WebsiteExample.Server.csproj", "{B76DC243-265B-4FED-A761-C66EC0F7CCA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{3CAB20B7-2FFF-4E6E-9466-30FD44F69F98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CAB20B7-2FFF-4E6E-9466-30FD44F69F98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CAB20B7-2FFF-4E6E-9466-30FD44F69F98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B76DC243-265B-4FED-A761-C66EC0F7CCA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B76DC243-265B-4FED-A761-C66EC0F7CCA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B76DC243-265B-4FED-A761-C66EC0F7CCA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B76DC243-265B-4FED-A761-C66EC0F7CCA1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
