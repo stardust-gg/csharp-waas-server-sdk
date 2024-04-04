@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using Nethereum.Accounts.AccountMessageSigning;
 using Nethereum.BlockchainProcessing.BlockStorage.Entities;
+using Nethereum.Contracts.QueryHandlers.MultiCall;
 using Nethereum.Hex.HexTypes;
 using Nethereum.JsonRpc.Client;
 using Nethereum.RPC.AccountSigning;
@@ -79,7 +80,7 @@ namespace StardustTest.Stardust
 
                 var signedTransaction = await web3.TransactionManager.SignTransactionAsync(transactionInput);
 
-
+                output.WriteLine($"Address : {getAddress}");
                 output.WriteLine($"Signed Transaction: {signedTransaction}");
 
                 var transaction = await web3.Eth.Transactions.SendRawTransaction.SendRequestAsync(signedTransaction);
@@ -103,6 +104,9 @@ namespace StardustTest.Stardust
                 var addressRec1 = signer1.HashAndEcRecover(msg1, result);
                 var getAddress = await nethereumSigner.GetAddressAsync();
                 Assert.Equal(getAddress, addressRec1);
+                output.WriteLine($"Sign message : {msg1}");
+                output.WriteLine($"Address : {getAddress}");
+                output.WriteLine($"Signature Raw : {result}");
             }
         }
 
@@ -118,6 +122,9 @@ namespace StardustTest.Stardust
                 var addressRec1 = signer1.EncodeUTF8AndEcRecover(msg1, result);
                 var getAddress = await nethereumSigner.GetAddressAsync();
                 Assert.Equal(getAddress, addressRec1);
+                output.WriteLine($"Sign message : {msg1}");
+                output.WriteLine($"Address : {getAddress}");
+                output.WriteLine($"Signature Prefixed : {result}");
             }
         }
 

@@ -39,8 +39,8 @@ namespace StardustTest.Stardust
                 var myApp = await stardustApplication.Get();
                 Assert.NotNull(myApp);
                 Assert.NotNull(myApp.Name);
-                output.WriteLine($"Id : {myApp.Id}");
-                output.WriteLine($"Name : {myApp.Name}");
+                output.WriteLine($"App Id : {myApp.Id}");
+                output.WriteLine($"App Name : {myApp.Name}");
             }
         }
     }

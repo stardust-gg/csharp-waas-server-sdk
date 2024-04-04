@@ -21,7 +21,7 @@ namespace StardustTest.Stardust
 
        
         [Fact]
-        public async void GetProfile()
+        public async void GetWallet()
         {
             // Instruction in the README file to test this part
             if (!string.IsNullOrEmpty(apiKey))
@@ -40,6 +40,9 @@ namespace StardustTest.Stardust
                 Assert.Equal(profile.Id, getProfile.Id);
                 Assert.Equal(profile.Name, getProfile.Name);
                 Assert.Equal(profile.Wallet.Id, getProfile.Wallet.Id);
+                output.WriteLine($"Profile Id : {getProfile.Id}");
+                output.WriteLine($"Profile Name : {getProfile.Name}");
+                output.WriteLine($"Wallet Id : {getProfile.Wallet.Id}");
             }
         }
     }

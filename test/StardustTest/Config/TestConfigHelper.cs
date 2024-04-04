@@ -15,6 +15,7 @@ namespace StardustTest.Config
             return new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile("appsettings.local.json", optional: true, reloadOnChange: true)
+                .AddEnvironmentVariables()
                 .Build();
         }
 

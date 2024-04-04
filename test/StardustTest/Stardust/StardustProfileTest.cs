@@ -4,6 +4,7 @@ using StartdustCustodialSDK.Profile;
 using System.Diagnostics;
 using Xunit.Abstractions;
 using StartdustCustodialSDK.Utils;
+using Nethereum.Contracts.QueryHandlers.MultiCall;
 namespace StardustTest.Stardust
 {
     public class StardustProfileTest
@@ -32,8 +33,8 @@ namespace StardustTest.Stardust
                 var profile = await stardustProfileApi.Create(profileParam);
                 Assert.NotNull(profile);
                 Assert.NotNull(profile.Id);
-                output.WriteLine($"Id : {profile.Id}");
-                output.WriteLine($"Name : {profile.Name}");
+                output.WriteLine($"Profile Id : {profile.Id}");
+                output.WriteLine($"Profile Name : {profile.Name}");
             }
         }
 
@@ -55,6 +56,8 @@ namespace StardustTest.Stardust
                 Assert.Equal(profile.Id, getProfile.Id);
                 Assert.Equal(profile.Name, getProfile.Name);
                 Assert.Equal(profile.Wallet.Id, getProfile.Wallet.Id);
+                output.WriteLine($"Profile Id : {profile.Id}");
+                output.WriteLine($"Profile Name : {profile.Name}");
             }
         }
 
@@ -96,6 +99,10 @@ namespace StardustTest.Stardust
                 Assert.NotNull(newIdentifier);
                 Assert.Equal(newIdentifier.Service, StardustProfileIdentifierService.Twitter.DisplayName());
                 Assert.Equal(newIdentifier.Value, "test identifier");
+                output.WriteLine($"Profile Id : {profile.Id}");
+                output.WriteLine($"Profile Name : {profile.Name}");
+                output.WriteLine($"Profile Identifier : {newIdentifier.Service}");
+                output.WriteLine($"Profile Identifier Value : {newIdentifier.Value}");
 
                 await profile.AddCustomIdentifier("Metamask", "test identifier 2");
 
@@ -103,6 +110,7 @@ namespace StardustTest.Stardust
                 var getListIdentifier = await profile.GetIdentifiers();
                 Assert.Equal(getListIdentifier.Count, 2);
                 Assert.Contains(getListIdentifier, x => x.Service == $"csharp-sdk:Metamask");
+
             }
         }
     }
