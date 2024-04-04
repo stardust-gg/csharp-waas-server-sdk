@@ -19,8 +19,6 @@ git clone https://github.com/stardust-gg/csharp-waas-server-sdk.git
 cd csharp-waas-server-sdk
 ``` 
 
-And open your bowser on [http://localhost:5079/index.html](http://localhost:5079/index.html)
-
 [More info about the cli interface](https://learn.microsoft.com/en-us/dotnet/core/tools/)
 
 
@@ -80,6 +78,8 @@ Launch the WebApiExample in cli.
 ```
 dotnet run --project .\examples\WebApiExample\WebApiExample.csproj
 ``` 
+
+And open your bowser on [http://localhost:5079/index.html](http://localhost:5079/index.html)
 
 ## Common Usage
 
