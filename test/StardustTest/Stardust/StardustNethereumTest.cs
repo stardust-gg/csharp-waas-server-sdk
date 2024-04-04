@@ -84,6 +84,7 @@ namespace StardustTest.Stardust
                 output.WriteLine($"Signed Transaction: {signedTransaction}");
 
                 var transaction = await web3.Eth.Transactions.SendRawTransaction.SendRequestAsync(signedTransaction);
+                output.WriteLine($"Transaction Id: {transaction}");
                 var receipt = await GetReceiptAsync(web3, transaction);
                 var balanceAfter = await web3.Eth.GetBalance.SendRequestAsync(toAddress);
                 var sendAmount = balanceAfter.Value - balance.Value;
