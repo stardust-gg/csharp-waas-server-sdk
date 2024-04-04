@@ -237,6 +237,7 @@ Prefix and sign message with [eip-191](https://eips.ethereum.org/EIPS/eip-191) (
 string apiKey = "myApiKey";
 string walletId = "walletId";
 var evmSigner = new EvmStardustSigner(apiKey, walletId);
+var msg1 = "Hello world message 18/09/2017 02:55PM
 var result = await evmSigner.SignMessage(msg1);
 ```
 
