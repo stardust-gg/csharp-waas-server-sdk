@@ -19,23 +19,6 @@ git clone https://github.com/stardust-gg/csharp-waas-server-sdk.git
 cd csharp-waas-server-sdk
 ``` 
 
-Launch the test
-```
-dotnet test -e --logger "console;verbosity=detailed"
-``` 
-
-Define ApiKey to test webservice call 
-```
-dotnet test -e ApiKey="MyApiKey" --logger "console;verbosity=detailed"
-``` 
-
-Define a Wallet Id with some matic on mumbai to test nethereum transfer
-```
-dotnet test -e ApiKey="MyApiKey" -e WalletId="MyWalletId" --logger "console;verbosity=detailed"
-``` 
-
-[More info about the test command](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-test)
-
 Launch the WebApiExample with a swagger interface
 ```
 dotnet run --project .\examples\WebApiExample\WebApiExample.csproj
@@ -63,7 +46,7 @@ dotnet build .\src\StartdustCustodialSDK\StartdustCustodialSDK.csproj --configur
 
 Net 8.0 Test project.
 
-Create a file appsettings.local.json in StardustTest and put your apiKey in it if you want to test Api calls.
+To test from Visual Studio, create a file appsettings.local.json in StardustTest and put your apiKey in it if you want to test Api calls.
 
 Add a wallet Id with some matic on mumbai to test transaction with the nethereum signer.
 
@@ -73,3 +56,21 @@ Add a wallet Id with some matic on mumbai to test transaction with the nethereum
   "WalletId": "ea5****-****-****-****-********4f"
 }
 ```
+
+To launch the test from Cli
+```
+dotnet test -e --logger "console;verbosity=detailed"
+``` 
+
+Define ApiKey to test webservice call 
+```
+dotnet test -e ApiKey="MyApiKey" --logger "console;verbosity=detailed"
+``` 
+
+Define a Wallet Id with some matic on mumbai to test nethereum transfer
+```
+dotnet test -e ApiKey="MyApiKey" -e WalletId="MyWalletId" --logger "console;verbosity=detailed"
+``` 
+
+[More info about the test command](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-test)
+
