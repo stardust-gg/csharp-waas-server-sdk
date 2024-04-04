@@ -30,7 +30,7 @@ You just need to reference the project to use it or build the dll and import it 
 
 Build with cli 
 ```
-dotnet build .\src\StartdustCustodialSDK\StartdustCustodialSDK.csproj --configuration Release
+dotnet build src/StartdustCustodialSDK/StartdustCustodialSDK.csproj --configuration Release
 ```
 
 [More info about the build command](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-build)
@@ -52,7 +52,7 @@ Add a wallet Id with some matic on mumbai to test transaction with the nethereum
 
 To launch the test from Cli
 ```
-dotnet test -e --logger "console;verbosity=detailed"
+dotnet test --logger "console;verbosity=detailed"
 ``` 
 
 Define ApiKey to test webservice call 
@@ -76,7 +76,7 @@ Example of sdk use in api web controllers.
 Launch the WebApiExample in cli.
 
 ```
-dotnet run --project .\examples\WebApiExample\WebApiExample.csproj
+dotnet run --project examples/WebApiExample/WebApiExample.csproj
 ``` 
 
 And open your bowser on [http://localhost:5079/index.html](http://localhost:5079/index.html)
