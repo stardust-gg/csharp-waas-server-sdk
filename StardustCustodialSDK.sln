@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StartdustCustodialSDK", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StardustTest", "test\StardustTest\StardustTest.csproj", "{3CAB20B7-2FFF-4E6E-9466-30FD44F69F98}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebsiteExample.Server", "examples\WebsiteExample\WebsiteExample.Server\WebsiteExample.Server.csproj", "{B76DC243-265B-4FED-A761-C66EC0F7CCA1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiExample", "examples\WebApiExample\WebApiExample.csproj", "{F253B309-9B83-4FE2-B515-F86D819681E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{3CAB20B7-2FFF-4E6E-9466-30FD44F69F98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CAB20B7-2FFF-4E6E-9466-30FD44F69F98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CAB20B7-2FFF-4E6E-9466-30FD44F69F98}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B76DC243-265B-4FED-A761-C66EC0F7CCA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B76DC243-265B-4FED-A761-C66EC0F7CCA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B76DC243-265B-4FED-A761-C66EC0F7CCA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B76DC243-265B-4FED-A761-C66EC0F7CCA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F253B309-9B83-4FE2-B515-F86D819681E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F253B309-9B83-4FE2-B515-F86D819681E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F253B309-9B83-4FE2-B515-F86D819681E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F253B309-9B83-4FE2-B515-F86D819681E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

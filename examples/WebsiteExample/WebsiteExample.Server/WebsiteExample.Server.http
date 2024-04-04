@@ -1,6 +1,0 @@
-@WebsiteExample.Server_HostAddress = http://localhost:5089
-
-GET {{WebsiteExample.Server_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
