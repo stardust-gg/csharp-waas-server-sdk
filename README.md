@@ -190,7 +190,6 @@ var web3 = new Web3(externalAccount, rpcClient);
 web3.TransactionManager.UseLegacyAsDefault = true;
 
 var toAddress = "0x0f571D2625b503BB7C1d2b5655b483a2Fa696fEf"; // Replace with the address of the recipient
-var balance = await web3.Eth.GetBalance.SendRequestAsync(toAddress);
 var amountToSend = 0.001m; // Replace with the amount to send in ether
 
 var gasPriceGwei = 2; // Replace with your desired gas price in Gwei
