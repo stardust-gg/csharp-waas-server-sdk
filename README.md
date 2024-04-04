@@ -34,12 +34,14 @@ Define a Wallet Id with some matic on mumbai to test nethereum transfer
 dotnet test -e ApiKey="MyApiKey" -e WalletId="MyWalletId" --logger "console;verbosity=detailed"
 ``` 
 
+[More info about the test command](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-test)
+
 Launch the WebApiExample with a swagger interface
 ```
 dotnet run --project .\examples\WebApiExample\WebApiExample.csproj
 ``` 
 
-[And open your bowser on http://localhost:5079/index.html](http://localhost:5079/index.html)
+And open your bowser on [http://localhost:5079/index.html](http://localhost:5079/index.html)
 
 [More info about the cli interface](https://learn.microsoft.com/en-us/dotnet/core/tools/)
 
@@ -49,6 +51,13 @@ dotnet run --project .\examples\WebApiExample\WebApiExample.csproj
 NetStandard 2.0 library for maximum compatibility.
 
 You just need to reference the project to use it or build the dll and import it in your c# project.
+
+Build with cli 
+```
+dotnet build .\src\StartdustCustodialSDK\StartdustCustodialSDK.csproj --configuration Release
+```
+
+[More info about the build command](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-build)
 
 ## StardustTest
 
