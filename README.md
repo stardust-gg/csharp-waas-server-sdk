@@ -81,7 +81,7 @@ dotnet run --project examples/WebApiExample/WebApiExample.csproj
 
 And open your bowser on [http://localhost:5079/index.html](http://localhost:5079/index.html)
 
-C# Console projects example 
+## Console projects example 
 
 Create a profile
 ```
