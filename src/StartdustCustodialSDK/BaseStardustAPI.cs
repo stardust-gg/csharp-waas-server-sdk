@@ -46,7 +46,7 @@ namespace StartdustCustodialSDK
 #if DEBUG
                 // for test
                 var result = await httpClient.GetAsync($"{endpoint}?{queryString}");
-                var json =await result.Content.ReadAsStringAsync();
+                var json = await result.Content.ReadAsStringAsync();
 #endif
 
                 return await httpClient.GetFromJsonAsync<TOut>($"{endpoint}?{queryString}");
@@ -68,6 +68,20 @@ namespace StartdustCustodialSDK
                 {
                     response = await httpClient.PostAsync(endpoint, null);
                 }
+                response.EnsureSuccessStatusCode();
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                TOut result = JsonSerializer.Deserialize<TOut>(jsonResponse, new JsonSerializerOptions(JsonSerializerDefaults.Web));
+                return result;
+            }
+        }
+
+        public async Task<TOut> ApiPost<TOut>(string endpoint) where TOut : class
+        {
+            using (var httpClient = new HttpClient())
+            {
+                httpClient.BaseAddress = new Uri(Url);
+                httpClient.DefaultRequestHeaders.Add("x-api-key", this.ApiKey);
+                HttpResponseMessage response = await httpClient.PostAsync(endpoint, null);
                 response.EnsureSuccessStatusCode();
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 TOut result = JsonSerializer.Deserialize<TOut>(jsonResponse, new JsonSerializerOptions(JsonSerializerDefaults.Web));

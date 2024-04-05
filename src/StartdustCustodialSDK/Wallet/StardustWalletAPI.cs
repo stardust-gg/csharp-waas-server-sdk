@@ -17,10 +17,9 @@ namespace StartdustCustodialSDK.Profile
         {
         }
 
-        public async Task<StardustWallet> Create(string profileId = null)
+        public async Task<StardustWallet> Create()
         {
-            StardustWalletCreateParams walletParams = new StardustWalletCreateParams(profileId);
-            var wallet = await ApiPost<StardustWalletCreateParams, StardustWallet>("wallet", walletParams);
+            var wallet = await ApiPost<StardustWallet>("wallet");
             wallet.Init(this.ApiKey);
             return wallet;
         }
