@@ -81,6 +81,18 @@ dotnet run --project examples/WebApiExample/WebApiExample.csproj
 
 And open your bowser on [http://localhost:5079/index.html](http://localhost:5079/index.html)
 
+C# Console projects example 
+
+Create a profile
+```
+dotnet run --project examples/ProfilesExample/ProfilesExample.csproj "myapikey"
+```
+
+Create a jwt token for a profile
+```
+dotnet run --project examples/ProfileJWTExample/ProfileJWTExample.csproj "myapikey" "myprofileid"
+```
+
 ## Common Usage
 
 You can see examples in StardustTest and WebApiExample.
