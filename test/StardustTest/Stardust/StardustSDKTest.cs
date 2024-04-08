@@ -41,5 +41,26 @@ namespace StardustTest.Stardust
                 output.WriteLine($"Profile Id : {getWallet.ProfileId}");
             }
         }
+
+        [Fact]
+        public async void CreateProfile()
+        {
+            // Instruction in the README file to test this part
+            if (!string.IsNullOrEmpty(apiKey))
+            {
+                // test creation of new profile from sdk class
+                var stardustCustodialSdk = new StardustCustodialSdk(apiKey);
+                var app = await stardustCustodialSdk.GetApplication();
+                var newProfile = await stardustCustodialSdk.CreateProfile(app.Id);
+                Assert.NotNull(newProfile);
+                Assert.NotNull(newProfile.Id);
+                output.WriteLine($"Profile Id : {newProfile.Id}");
+
+                // test if we can retrieve this new profile
+                var getProfile = await stardustCustodialSdk.GetProfile(newProfile.Id);
+                Assert.Equal(newProfile.Id, getProfile.Id);
+                output.WriteLine($"Retrieve Profile Id : {getProfile.Id}");
+            }
+        }
     }
 }
