@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProfilesExample", "examples
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProfileJWTExample", "examples\ProfileJWTExample\ProfileJWTExample.csproj", "{564E69C8-8999-4407-B4E6-9A5F3CB3C210}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintExample", "examples\MintExample\MintExample.csproj", "{DC3C40F3-30F7-4D5E-AE90-B5A1399487CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{564E69C8-8999-4407-B4E6-9A5F3CB3C210}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{564E69C8-8999-4407-B4E6-9A5F3CB3C210}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{564E69C8-8999-4407-B4E6-9A5F3CB3C210}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC3C40F3-30F7-4D5E-AE90-B5A1399487CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC3C40F3-30F7-4D5E-AE90-B5A1399487CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC3C40F3-30F7-4D5E-AE90-B5A1399487CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC3C40F3-30F7-4D5E-AE90-B5A1399487CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -93,9 +93,14 @@ Create a jwt token for a profile
 dotnet run --project examples/ProfileJWTExample/ProfileJWTExample.csproj "myapikey" "myprofileid"
 ```
 
+Mint a Nft with Nethereum on polygon mumbai, the wallet needs some matic to mint the nft
+```
+dotnet run --project examples/MintExample/MintExample.csproj "myapikey" "mywalletid"
+```
+
 ## Common Usage
 
-You can see examples in StardustTest and WebApiExample.
+You can see examples in StardustTest and different project Example.
 
 ### Get app information
 
