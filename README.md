@@ -4,7 +4,9 @@ Created with Visual Studio 2022
 
 ## Installation
 
-[Download and install the .net sdk 8.0](https://dotnet.microsoft.com/en-us/download/visual-studio-sdks)
+Download and install the .net sdk 8.0:
+- [.NET for windows](https://dotnet.microsoft.com/en-us/download/visual-studio-sdks)
+- [.NET for macos](https://learn.microsoft.com/en-us/dotnet/core/install/macos)
 
 To open the project you can use :
 - Visual Studio 2022 on Windows
@@ -35,68 +37,6 @@ dotnet build src/StartdustCustodialSDK/StartdustCustodialSDK.csproj --configurat
 
 [More info about the build command](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-build)
 
-## StardustTest
-
-Net 8.0 Test project.
-
-To test from Visual Studio, create a file appsettings.local.json in StardustTest and put your apiKey in it if you want to test Api calls.
-
-Add a wallet Id with some matic on mumbai to test transaction with the nethereum signer.
-
-```
-{
-  "ApiKey": "c80****-****-****-****-********5a",  
-  "WalletId": "ea5****-****-****-****-********4f"
-}
-```
-
-To launch the test from Cli
-```
-dotnet test --logger "console;verbosity=detailed"
-``` 
-
-Define ApiKey to test webservice call 
-```
-dotnet test -e ApiKey="MyApiKey" --logger "console;verbosity=detailed"
-``` 
-
-Define a Wallet Id with some matic on mumbai to test nethereum transfer
-```
-dotnet test -e ApiKey="MyApiKey" -e WalletId="MyWalletId" --logger "console;verbosity=detailed"
-``` 
-
-[More info about the test command](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-test)
-
-## WebApi Example
-
-Asp.Net Core 8.0 Api project with a swagger interface.
-
-Example of sdk use in api web controllers.
-
-Launch the WebApiExample in cli.
-
-```
-dotnet run --project examples/WebApiExample/WebApiExample.csproj
-``` 
-
-And open your bowser on [http://localhost:5079/index.html](http://localhost:5079/index.html)
-
-## Console projects example 
-
-Create a profile
-```
-dotnet run --project examples/ProfilesExample/ProfilesExample.csproj "myapikey"
-```
-
-Create a jwt token for a profile
-```
-dotnet run --project examples/ProfileJWTExample/ProfileJWTExample.csproj "myapikey" "myprofileid"
-```
-
-Mint a Nft with Nethereum on polygon mumbai, the wallet needs some matic to mint the nft
-```
-dotnet run --project examples/MintExample/MintExample.csproj "myapikey" "mywalletid"
-```
 
 ## Common Usage
 
@@ -234,7 +174,7 @@ var nethereumSigner = new NethereumStardustSigner(apiKey, walletId);
 var getAddress = await nethereumSigner.GetAddressAsync();
 ```
 
-[Nethereum documentation](https://docs.nethereum.com/en/latest/)
+For more information about this signer, please reference [Nethereum documentation](https://docs.nethereum.com/en/latest/)
 
 ### Evm Signer
 
@@ -273,3 +213,66 @@ string walletId = "walletId";
 var evmSigner = new EvmStardustSigner(apiKey, walletId);
 var publicKey = await evmSigner.GetPublicKey();
 ```
+
+## WebApi Example
+
+Asp.Net Core 8.0 Api project with a swagger interface.
+
+Example of sdk use in api web controllers.
+
+Launch the WebApiExample in cli.
+
+```
+dotnet run --project examples/WebApiExample/WebApiExample.csproj
+``` 
+
+And open your bowser on [http://localhost:5079/index.html](http://localhost:5079/index.html)
+
+## Console projects example 
+
+Create a profile
+```
+dotnet run --project examples/ProfilesExample/ProfilesExample.csproj "myapikey"
+```
+
+Create a jwt token for a profile
+```
+dotnet run --project examples/ProfileJWTExample/ProfileJWTExample.csproj "myapikey" "myprofileid"
+```
+
+Mint a Nft with Nethereum on polygon mumbai, the wallet needs some matic to mint the nft
+```
+dotnet run --project examples/MintExample/MintExample.csproj "myapikey" "mywalletid"
+```
+
+## StardustTest
+
+Net 8.0 Test project.
+
+To test from Visual Studio, create a file appsettings.local.json in StardustTest and put your apiKey in it if you want to test Api calls.
+
+Add a wallet Id with some matic on mumbai to test transaction with the nethereum signer.
+
+```
+{
+  "ApiKey": "c80****-****-****-****-********5a",  
+  "WalletId": "ea5****-****-****-****-********4f"
+}
+```
+
+To launch the test from Cli
+```
+dotnet test --logger "console;verbosity=detailed"
+``` 
+
+Define ApiKey to test webservice call 
+```
+dotnet test -e ApiKey="MyApiKey" --logger "console;verbosity=detailed"
+``` 
+
+Define a Wallet Id with some matic on mumbai to test nethereum transfer
+```
+dotnet test -e ApiKey="MyApiKey" -e WalletId="MyWalletId" --logger "console;verbosity=detailed"
+``` 
+
+[More info about the test command](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-test)
