@@ -1,13 +1,34 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Title>Stardust Custodial SDK</Title>
+		<Company>Stardust</Company>
+		<Description>Stardust-Custodial-SDK is a server side C# based SDK specifically crafted to enable seamless integration with Stardust custodial Wallets as a Service (WaaS). This SDK is designed for developers seeking to incorporate advanced wallet management features into their C# applications with minimal effort - whether they're building a new project or enhancing an existing one.</Description>
+		<Copyright>Stardust</Copyright>
+		<PackageProjectUrl>https://waas.stardust.gg</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/stardust-gg/csharp-waas-server-sdk</RepositoryUrl>
+		<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+		<Authors>stardust.gg</Authors>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Nethereum.Hex" Version="4.19.0" />
-    <PackageReference Include="Nethereum.Signer" Version="4.19.0" />
-    <PackageReference Include="System.Net.Http.Json" Version="8.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="..\..\LICENSE.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Nethereum.Hex" Version="4.19.0" />
+		<PackageReference Include="Nethereum.Signer" Version="4.19.0" />
+		<PackageReference Include="System.Net.Http.Json" Version="8.0.0" />
+	</ItemGroup>
 
 </Project>
