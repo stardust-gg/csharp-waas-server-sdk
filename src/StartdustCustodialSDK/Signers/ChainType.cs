@@ -12,7 +12,8 @@ namespace StartdustCustodialSDK.Signers
         [Description("sui")]
         Sui,
         [Description("sol")]
-        Sol
-
+        Sol,
+        [Description("aptos")]
+        Aptos
     }
 }
