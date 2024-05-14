@@ -13,6 +13,7 @@
 		<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
 		<Authors>stardust.gg</Authors>
 		<PackageId>csharp-waas-server-sdk</PackageId>
+		<Version>1.1.0</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -31,10 +32,6 @@
 		<PackageReference Include="Nethereum.Hex" Version="4.19.0" />
 		<PackageReference Include="Nethereum.Signer" Version="4.19.0" />
 		<PackageReference Include="System.Net.Http.Json" Version="8.0.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Signers\Sol\" />
 	</ItemGroup>
 
 </Project>

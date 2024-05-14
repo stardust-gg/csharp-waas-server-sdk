@@ -1,16 +1,12 @@
 ﻿using Blake2Core;
 using Nethereum.Hex.HexConvertors.Extensions;
-using Nethereum.Signer;
-using StartdustCustodialSDK.Signers.Sui;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace StartdustCustodialSDK.Signers.Aptos
+namespace StartdustCustodialSDK.Signers.Sui
 {
     public class SuiStardustSigner : AbstractStardustSigner
     {
@@ -24,7 +20,7 @@ namespace StartdustCustodialSDK.Signers.Aptos
         {
             WalletId = walletId;
             this.Api = new StardustSignerAPI(apiKey);
-            this.ChainType = ChainType.Aptos;
+            this.ChainType = ChainType.Sui;
         }
 
         public override async Task<string> GetAddress()

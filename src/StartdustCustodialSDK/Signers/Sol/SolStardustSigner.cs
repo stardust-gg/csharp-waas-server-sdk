@@ -1,26 +1,23 @@
 ﻿using Nethereum.Hex.HexConvertors.Extensions;
-using Nethereum.Signer;
-using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace StartdustCustodialSDK.Signers.Aptos
+namespace StartdustCustodialSDK.Signers.Sol
 {
-    public class AptosStardustSigner : AbstractStardustSigner
+    public class SolStardustSigner : AbstractStardustSigner
     {
         public string WalletId { get; set; }
         public StardustSignerAPI Api { get; set; }
         public ChainType ChainType { get; set; }
 
-        public AptosStardustSigner() { }
+        public SolStardustSigner() { }
 
-        public AptosStardustSigner(string apiKey, string walletId)
+        public SolStardustSigner(string apiKey, string walletId)
         {
             WalletId = walletId;
             this.Api = new StardustSignerAPI(apiKey);
-            this.ChainType = ChainType.Aptos;
+            this.ChainType = ChainType.Sol;
         }
 
         public override async Task<string> GetAddress()
