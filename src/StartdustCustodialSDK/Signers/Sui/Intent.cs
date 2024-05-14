@@ -8,9 +8,8 @@ namespace StartdustCustodialSDK.Signers.Sui
     {
         TransactionData = 0,
         TransactionEffects = 1,
-        AuthorityBatch = 2,
-        CheckpointSummary = 3,
-        PersonalMessage = 4,
+        CheckpointSummary = 2,
+        PersonalMessage = 3,
     }
 
     public enum AppId : byte

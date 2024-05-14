@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace StartdustCustodialSDK.Signers.Aptos
@@ -50,6 +52,14 @@ namespace StartdustCustodialSDK.Signers.Aptos
             return await Sign(messageUtf8);
         }
 
+        public async Task<string> SignTransactionBlock(byte[] builtTx)
+        {
+            var intentMessage = Intent.MessageWithIntent(IntentScope.TransactionData, builtTx);
+            Blake2BConfig config = new Blake2BConfig() { OutputSizeInBytes = 32 };
+            var digest = Blake2B.ComputeHash(intentMessage, config);
+            return await Sign(digest);
+        }
+
         public async Task<string> SignPersonalMessage(byte[] message)
         {
             if (message.Length > 255)
@@ -69,6 +79,16 @@ namespace StartdustCustodialSDK.Signers.Aptos
             var signPayload = new SignRequestPayload<string>(WalletId, ChainType, message.ToHex());
             var signedMessage = await Api.SignMessage(signPayload);
             return signedMessage;
+        }
+
+        public ApiRequestPayload ToJson()
+        {
+            return new ApiRequestPayload(WalletId, ChainType);
+        }
+
+        public override string ToString()
+        {
+            return JsonSerializer.Serialize(ToJson());
         }
     }
 }
