@@ -27,6 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Blake2Core" Version="1.0.0" />
 		<PackageReference Include="Nethereum.Hex" Version="4.19.0" />
 		<PackageReference Include="Nethereum.Signer" Version="4.19.0" />
 		<PackageReference Include="System.Net.Http.Json" Version="8.0.0" />
