@@ -109,7 +109,7 @@ namespace StardustTest.Stardust
                 // find all created identifier for this profile
                 var getListIdentifier = await profile.GetIdentifiers();
                 Assert.Equal(getListIdentifier.Count, 2);
-                Assert.Contains(getListIdentifier, x => x.Service == $"csharp-sdk:Metamask");
+                Assert.Contains(getListIdentifier, x => x.Service == $"Metamask");
 
             }
         }

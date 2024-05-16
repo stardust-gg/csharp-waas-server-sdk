@@ -70,7 +70,7 @@ namespace StartdustCustodialSDK.Profile
 
         public async Task<StardustProfileIdentifier> AddCustomIdentifier(string service, string value)
         {
-            var newProfileIdentifier = new StardustProfileIdentifierCreateParams(this.Id, $"csharp-sdk:{service}", value);
+            var newProfileIdentifier = new StardustProfileIdentifierCreateParams(this.Id, $"{service}", value);
             return await this.StardustProfileIdentifierAPI.Create(newProfileIdentifier);
         }
 
