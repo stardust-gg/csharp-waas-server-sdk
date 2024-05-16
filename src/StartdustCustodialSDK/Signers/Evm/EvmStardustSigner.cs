@@ -1,4 +1,5 @@
 ﻿using Nethereum.Hex.HexConvertors.Extensions;
+using StartdustCustodialSDK.Utils;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -53,8 +54,7 @@ namespace StartdustCustodialSDK.Signers.Evm
 
         public async Task<string> SignMessage(string message)
         {
-            var messageUtf8 = Encoding.UTF8.GetBytes(message);
-            return await PrefixAndSign(messageUtf8);
+            return await PrefixAndSign(message.ToByte());
         }
 
         public async Task<string> SignMessage(byte[] message)

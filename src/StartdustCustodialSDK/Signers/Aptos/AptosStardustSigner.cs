@@ -1,5 +1,6 @@
 ﻿using Nethereum.Hex.HexConvertors.Extensions;
 using Nethereum.Signer;
+using StartdustCustodialSDK.Utils;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -50,8 +51,7 @@ namespace StartdustCustodialSDK.Signers.Aptos
 
         public async Task<string> SignMessage(string message)
         {
-            var messageUtf8 = Encoding.UTF8.GetBytes(message);
-            return await Sign(messageUtf8);
+            return await Sign(message.ToByte());
         }
 
         public async Task<string> SignMessage(byte[] message)
