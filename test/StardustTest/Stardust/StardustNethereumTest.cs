@@ -40,12 +40,12 @@ namespace StardustTest.Stardust
             // Use wallet id with credit on mumbai
             if (!string.IsNullOrEmpty(apiKey) && !string.IsNullOrEmpty(walletId))
             {
-                string rpcAddress = "https://rpc.ankr.com/polygon_mumbai";
+                string rpcAddress = "https://rpc-amoy.polygon.technology";
 
                 var rpcClient = new RpcClient(new Uri(rpcAddress));
 
                 // use walletId with token to test this part (80001 for mumbai)
-                var nethereumSigner = new NethereumStardustSigner(apiKey, walletId, "0x13881");
+                var nethereumSigner = new NethereumStardustSigner(apiKey, walletId, "0x13882");
                 var externalAccount = new ExternalAccount(nethereumSigner);
                 await externalAccount.InitialiseAsync();
 
@@ -72,7 +72,7 @@ namespace StardustTest.Stardust
                 {
                     From = externalAccount.Address,
                     To = toAddress,
-                    ChainId = new HexBigInteger("0x13881"),
+                    ChainId = new HexBigInteger("0x13882"),
                     Value = amount.ToHexBigInteger(),
                     GasPrice = new HexBigInteger(Web3.Convert.ToWei(gasPriceGwei, UnitConversion.EthUnit.Gwei)),
                     Gas = new HexBigInteger(gasLimit)
