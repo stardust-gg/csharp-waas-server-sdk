@@ -8,21 +8,21 @@ namespace StartdustCustodialSDK.Profile
     // Todo verify what type of data come for this enum
     public enum StardustProfileIdentifierService
     {
-        [Description("csharp-sdk:external-wallet")]
+        [Description(":external-wallet")]
         ExternalWallet,
-        [Description("csharp-sdk:discord")]
+        [Description("discord")]
         Discord,
-        [Description("csharp-sdk:apple")]
+        [Description("apple")]
         Apple,
-        [Description("csharp-sdk:google")]
+        [Description("google")]
         Google,
-        [Description("csharp-sdk:facebook")]
+        [Description("facebook")]
         Facebook,
-        [Description("csharp-sdk:twitter")]
+        [Description("twitter")]
         Twitter,
-        [Description("csharp-sdk:email")]
+        [Description("email")]
         Email,
-        [Description("csharp-sdk:phone")]
+        [Description("phone")]
         Phone
     }
 }
