@@ -23,6 +23,14 @@ namespace StartdustCustodialSDK.Signers.Sui
             this.ChainType = ChainType.Sui;
         }
 
+        public SuiStardustSigner(string apiKey, string url, string walletId)
+        {
+            WalletId = walletId;
+            this.Api = new StardustSignerAPI(apiKey, url);
+            this.ChainType = ChainType.Sui;
+        }
+
+
         public override async Task<string> GetAddress()
         {
             var payload = new ApiRequestPayload(this.WalletId, this.ChainType);
