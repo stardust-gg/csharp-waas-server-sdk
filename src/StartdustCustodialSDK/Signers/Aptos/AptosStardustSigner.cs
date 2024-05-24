@@ -17,10 +17,10 @@ namespace StartdustCustodialSDK.Signers.Aptos
 
         public AptosStardustSigner() { }
 
-        public AptosStardustSigner(string apiKey, string walletId)
+        public AptosStardustSigner(string apiKey, string walletId, string url = BaseStardustAPI.StardustUrl)
         {
             WalletId = walletId;
-            this.Api = new StardustSignerAPI(apiKey);
+            this.Api = new StardustSignerAPI(apiKey, url);
             this.ChainType = ChainType.Aptos;
         }
 

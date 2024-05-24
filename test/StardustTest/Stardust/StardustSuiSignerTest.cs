@@ -39,7 +39,7 @@ namespace StardustTest.Stardust
             url = config["PROD_SYSTEM_STARDUST_API_URL"];
             apiKey = config["PROD_SYSTEM_STARDUST_API_KEY"];
             walletId = config["PROD_SYSTEM_STARDUST_WALLET_ID"];
-            signer = new SuiStardustSigner(apiKey, url, walletId);
+            signer = new SuiStardustSigner(apiKey, walletId, url);
         }
 
 

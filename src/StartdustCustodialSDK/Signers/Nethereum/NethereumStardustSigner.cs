@@ -28,13 +28,13 @@ namespace StartdustCustodialSDK.Signers.Nethereum
 
         }
 
-        public NethereumStardustSigner(string apiKey, string walletId, string chainId = "1", ChainType chainType = ChainType.Evm)
+        public NethereumStardustSigner(string apiKey, string walletId, string chainId = "1", ChainType chainType = ChainType.Evm, string url = BaseStardustAPI.StardustUrl)
         {
             this.WalletId = walletId;
-            this.Api = new StardustSignerAPI(apiKey);
+            this.Api = new StardustSignerAPI(apiKey, url);
             this.ChainId = chainId;
             this.ChainType = chainType;
-            this.EvmSigner = new EvmStardustSigner(apiKey, walletId, chainId, chainType);
+            this.EvmSigner = new EvmStardustSigner(apiKey, walletId, chainId, chainType, url);
         }
 
         protected override async Task<byte[]> GetPublicKeyAsync()

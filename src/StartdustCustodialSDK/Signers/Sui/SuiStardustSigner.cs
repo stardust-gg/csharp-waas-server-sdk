@@ -16,20 +16,12 @@ namespace StartdustCustodialSDK.Signers.Sui
 
         public SuiStardustSigner() { }
 
-        public SuiStardustSigner(string apiKey, string walletId)
-        {
-            WalletId = walletId;
-            this.Api = new StardustSignerAPI(apiKey);
-            this.ChainType = ChainType.Sui;
-        }
-
-        public SuiStardustSigner(string apiKey, string url, string walletId)
+        public SuiStardustSigner(string apiKey, string walletId, string url = BaseStardustAPI.StardustUrl)
         {
             WalletId = walletId;
             this.Api = new StardustSignerAPI(apiKey, url);
             this.ChainType = ChainType.Sui;
         }
-
 
         public override async Task<string> GetAddress()
         {

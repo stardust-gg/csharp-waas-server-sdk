@@ -19,13 +19,14 @@ namespace StartdustCustodialSDK.Signers.Evm
 
         }
 
-        public EvmStardustSigner(string apiKey, string walletId, string chainId = "1", ChainType chainType = ChainType.Evm)
+        public EvmStardustSigner(string apiKey, string walletId, string chainId = "1", ChainType chainType = ChainType.Evm, string url = BaseStardustAPI.StardustUrl)
         {
             this.WalletId = walletId;
-            this.Api = new StardustSignerAPI(apiKey);
+            this.Api = new StardustSignerAPI(apiKey, url);
             this.ChainId = chainId;
             this.ChainType = chainType;
         }
+
 
         public override async Task<string> GetAddress()
         {

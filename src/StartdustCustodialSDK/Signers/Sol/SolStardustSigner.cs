@@ -14,10 +14,10 @@ namespace StartdustCustodialSDK.Signers.Sol
 
         public SolStardustSigner() { }
 
-        public SolStardustSigner(string apiKey, string walletId)
+        public SolStardustSigner(string apiKey, string walletId, string url = BaseStardustAPI.StardustUrl)
         {
             WalletId = walletId;
-            this.Api = new StardustSignerAPI(apiKey);
+            this.Api = new StardustSignerAPI(apiKey, url);
             this.ChainType = ChainType.Sol;
         }
 
