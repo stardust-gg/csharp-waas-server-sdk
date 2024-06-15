@@ -44,7 +44,7 @@ namespace StardustTest.Stardust
 
                 var rpcClient = new RpcClient(new Uri(rpcAddress));
 
-                // use walletId with token to test this part (80001 for mumbai)
+                // use walletId with token to test this part (80002 for amoy)
                 var nethereumSigner = new NethereumStardustSigner(apiKey, walletId, "0x13882");
                 var externalAccount = new ExternalAccount(nethereumSigner);
                 await externalAccount.InitialiseAsync();
