@@ -14,8 +14,10 @@ using Nethereum.Web3.Accounts;
 using StardustTest.Config;
 using StartdustCustodialSDK.Application;
 using StartdustCustodialSDK.Signers;
+using StartdustCustodialSDK.Signers.Aptos;
 using StartdustCustodialSDK.Signers.Evm;
 using StartdustCustodialSDK.Signers.Nethereum;
+using StartdustCustodialSDK.Signers.Sol;
 using StartdustCustodialSDK.Signers.Sui;
 using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
@@ -24,22 +26,22 @@ using Xunit.Abstractions;
 
 namespace StardustTest.Stardust
 {
-    public class StardustSuiSignerTest
+    public class StardustAptosSignerTest
     {
         private readonly ITestOutputHelper output;
-        private readonly SuiStardustSigner signer;
+        private readonly AptosStardustSigner signer;
         string apiKey;
         string walletId;
         string url;
 
-        public StardustSuiSignerTest(ITestOutputHelper output)
+        public StardustAptosSignerTest(ITestOutputHelper output)
         {
             var config = TestConfigHelper.GetIConfigurationRoot();
             this.output = output;
             url = config["PROD_SYSTEM_STARDUST_API_URL"];
             apiKey = config["PROD_SYSTEM_STARDUST_API_KEY"];
             walletId = config["PROD_SYSTEM_STARDUST_WALLET_ID"];
-            signer = new SuiStardustSigner(apiKey, walletId, url);
+            signer = new AptosStardustSigner(apiKey, walletId, url);
         }
 
 
@@ -51,7 +53,7 @@ namespace StardustTest.Stardust
             {
                 string message = "hello world";
                 var signature = await signer.SignRaw(message);
-                string expected = "ADU23qHQhcxIHxSL1hY4erhEHzj6GnJlJBo4B3KQth3nFq8I6+cnf6Blksw+M2HYGsJJYbYMRo/w3Bh0LpTbyQxsierfKdh0UkIxFtapQZvTmbfjwzW++UogcFzyY3FMjQ==";
+                string expected = "0x66F5B43DCED4053792148BE533D6B257AE841773CF9E8E5D900146EA7524E0F55F2F20E7E075AD87419AE877F64BD539A071BBD3C64F2AA1B49ABA7CA8404F0E";
                 output.WriteLine(signature);
                 Assert.Equal(signature, expected);
             }
@@ -66,11 +68,12 @@ namespace StardustTest.Stardust
             {
                 string message = "0x68656c6c6f20776f726c64";
                 var signature = await signer.SignRaw(message.HexToByteArray());
-                string expected = "ADU23qHQhcxIHxSL1hY4erhEHzj6GnJlJBo4B3KQth3nFq8I6+cnf6Blksw+M2HYGsJJYbYMRo/w3Bh0LpTbyQxsierfKdh0UkIxFtapQZvTmbfjwzW++UogcFzyY3FMjQ==";
+                string expected = "0x66F5B43DCED4053792148BE533D6B257AE841773CF9E8E5D900146EA7524E0F55F2F20E7E075AD87419AE877F64BD539A071BBD3C64F2AA1B49ABA7CA8404F0E";
                 output.WriteLine(signature);
                 Assert.Equal(signature, expected);
             }
         }
+
 
         [Fact]
         public async void GetPublickKey()
@@ -79,7 +82,7 @@ namespace StardustTest.Stardust
             if (!string.IsNullOrEmpty(apiKey) && !string.IsNullOrEmpty(walletId))
             {
                 string key = await signer.GetPublicKey();
-                string expected = "0x6c89eadf29d87452423116d6a9419bd399b7e3c335bef94a20705cf263714c8d";
+                string expected = "0x0dcff96726d8a22d0275a80f4b1787d80933080da4af6711598dad8e4711951c";
                 Assert.Equal(key, expected);
             }
         }
@@ -91,7 +94,7 @@ namespace StardustTest.Stardust
             if (!string.IsNullOrEmpty(apiKey) && !string.IsNullOrEmpty(walletId))
             {
                 string key = await signer.GetAddress();
-                string expected = "0x34fbbe1c58782d1ef094841b63fff91e2062aaaa44225b88a7898664ced4d8f8";
+                string expected = "0x43171a4fce80da99cb1976f6418a3b386c4b36c2529667ac925b2fefcb918463";
                 Assert.Equal(key, expected);
             }
         }
