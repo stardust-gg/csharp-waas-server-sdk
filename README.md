@@ -132,12 +132,12 @@ Send some native token to an user (Ethereum, Matic, BNB ...)
 ```cs
 string apiKey = "myApiKey";
 string walletId = "walletId";
-// Example for send matic in Mumbai testnet
-string rpcAddress = "https://rpc.ankr.com/polygon_mumbai";
+// Example for send matic in Amoy testnet
+string rpcAddress = "https://rpc-amoy.polygon.technology";
 var rpcClient = new RpcClient(new Uri(rpcAddress));
 
-// use walletId with token to test this part (chain id 80001 or 0x13881 for mumbai)
-var nethereumSigner = new NethereumStardustSigner(apiKey, walletId, "0x13881");
+// use walletId with token to test this part (chain id 80002 or 0x13882 for amoy)
+var nethereumSigner = new NethereumStardustSigner(apiKey, walletId, "0x13882");
 var externalAccount = new ExternalAccount(nethereumSigner);
 await externalAccount.InitialiseAsync();
 externalAccount.InitialiseDefaultTransactionManager(rpcClient);
@@ -157,7 +157,7 @@ var transactionInput = new Nethereum.RPC.Eth.DTOs.TransactionInput()
  {
      From = externalAccount.Address,
      To = toAddress,
-     ChainId = new HexBigInteger("0x13881"),
+     ChainId = new HexBigInteger("0x13882"),
      Value = amount.ToHexBigInteger(),
      GasPrice = new HexBigInteger(Web3.Convert.ToWei(gasPriceGwei, UnitConversion.EthUnit.Gwei)),
      Gas = new HexBigInteger(gasLimit)
@@ -240,7 +240,7 @@ Create a jwt token for a profile
 dotnet run --project examples/ProfileJWTExample/ProfileJWTExample.csproj "myapikey" "myprofileid"
 ```
 
-Mint a Nft with Nethereum on polygon mumbai, the wallet needs some matic to mint the nft
+Mint a Nft with Nethereum on polygon amoy, the wallet needs some matic to mint the nft
 ```
 dotnet run --project examples/MintExample/MintExample.csproj "myapikey" "mywalletid"
 ```
@@ -251,12 +251,17 @@ Net 8.0 Test project.
 
 To test from Visual Studio, create a file appsettings.local.json in StardustTest and put your apiKey in it if you want to test Api calls.
 
-Add a wallet Id with some matic on mumbai to test transaction with the nethereum signer.
+Add a wallet Id with some matic on amoy to test transaction with the nethereum signer.
+
+Use PROD_SYSTEM informations to test aptos/sol/sui signer
 
 ```
 {
   "ApiKey": "c80****-****-****-****-********5a",  
-  "WalletId": "ea5****-****-****-****-********4f"
+  "WalletId": "ea5****-****-****-****-********4f",
+  "PROD_SYSTEM_STARDUST_API_URL": "",
+  "PROD_SYSTEM_STARDUST_API_KEY": "",
+  "PROD_SYSTEM_STARDUST_WALLET_ID": ""
 }
 ```
 
@@ -270,7 +275,7 @@ Define ApiKey to test webservice call
 dotnet test -e ApiKey="MyApiKey" --logger "console;verbosity=detailed"
 ``` 
 
-Define a Wallet Id with some matic on mumbai to test nethereum transfer
+Define a Wallet Id with some matic on amoy to test nethereum transfer
 ```
 dotnet test -e ApiKey="MyApiKey" -e WalletId="MyWalletId" --logger "console;verbosity=detailed"
 ``` 

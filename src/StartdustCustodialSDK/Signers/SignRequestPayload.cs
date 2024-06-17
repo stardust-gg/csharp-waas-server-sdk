@@ -23,5 +23,12 @@ namespace StartdustCustodialSDK.Signers
             ChainId = chainId;
             Message = message;
         }
+
+        public SignRequestPayload(string walletId, ChainType chainType, T message)
+        {
+            WalletId = walletId;
+            ChainType = chainType.DisplayName();
+            Message = message;
+        }
     }
 }

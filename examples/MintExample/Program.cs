@@ -20,7 +20,7 @@ try
     var wallet = await stardustCustodialSdk.GetWallet(walletId);
     var nethereumSigner = wallet.Nethereum;
 
-    string rpcAddress = "https://rpc.ankr.com/polygon_mumbai";
+    string rpcAddress = "https://rpc-amoy.polygon.technology";
 
     var rpcClient = new RpcClient(new Uri(rpcAddress));
 
@@ -34,7 +34,7 @@ try
     web3.TransactionManager.UseLegacyAsDefault = true;
 
     Console.WriteLine($"Wallet account address {externalAccount.Address}");
-    var toAddress = "0x55bb1b0d63ac51f3603d30cb335255da26c2e35e";// nft smartcontract
+    var toAddress = "0xda8c05c7f2783b0a8c1410636d379d0cd7cbd644";// nft smartcontract
 
     var gasPriceGwei = 2;
     var gasLimit = 100000;
